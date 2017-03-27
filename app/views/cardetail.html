@@ -1,0 +1,151 @@
+<div class="container" ng-controller="CarDetailController">
+    <div class="row row-content">
+        <div class="col-xs-12" ng-if="!showCar">
+            <h3>{{message}}</h3>
+        </div>
+        <div class="col-xs-1" ng-if="showCar"></div>
+        <div class="col-xs-7" ng-if="showCar">
+              <button class="btn btn-xs btn-primary pull-right"
+                   type="button" ui-sref="app.rentcar">
+                   Back to Cars List
+               </button>
+               <div>
+                      <img class="img-thumbnail"
+                       ng-src={{imagesBaseURL+car.image}} alt="{{car.model}}" style=" width: 100%; height: 100%; object-fit: contain;">
+               </div>
+               <div>
+                      <h2>{{car.make}}
+                       <span class="badge">{{car.model}}</span>
+                       <span class="label label-danger pull-right">{{car.pricePerDay | currency}} per day</span></h2>
+                       <p><b>Description:</b> <span>{{car.description}}</span></p>
+                       <p><b>Transmission:</b> <span>{{car.transmission}}</span></p>
+               </div>
+               <div class="col-xs-7">
+                    <h4>User Reviews</h4>
+                    <div class="media" ng-repeat="comment in car.carComments">
+                        <div class="media-left media-top">
+                                <img src="{{imagesBaseURL+comment.postedBy.image}}" class="media-object img-circle" style="width:50px">
+                        </div>
+                        <div class="media-body">
+                            <p>{{comment.rating}} Stars</p>
+                            <p>{{comment.comment}}.</p>
+                            <h4 class="media-heading">
+                                {{comment.postedBy.firstname}}&nbsp;{{comment.postedBy.lastname}},
+                                <small><i>{{comment.updatedAt | date:'medium'}}</i></small>
+                            </h4>
+                        </div>
+                         <hr>
+                    </div>
+               </div>  
+               <div class="col-xs-7">
+                    <ul class="list-unstyled" ng-show="commentForm.$valid && !commentForm.$pristine">
+                        <li>
+                          <blockquote>
+                             <p>{{mycomment.rating}} Stars</p>
+                             <p>{{mycomment.comment}}</p>
+                          </blockquote>
+                        </li>
+                    </ul>
+                <form class="form-horizontal" name="commentForm" ng-submit="submitComment()" novalidate>
+                    <div class="form-group">
+                       <label for="numpeople" class="col-sm-4 control-label">
+                        Number of Stars</label>
+                        <div class="col-sm-8">
+                            <label class="radio-inline">
+                            <input type="radio" name="rating" ng-model="mycomment.rating"
+                             id="rating1" value=1> 1
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="rating" ng-model="mycomment.rating"
+                                 id="rating2" value=2> 2
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="rating" ng-model="mycomment.rating"
+                                 id="rating3" value=3> 3
+                            </label>
+                             <label class="radio-inline">
+                                <input type="radio" name="rating" ng-model="mycomment.rating"
+                                 id="rating4" value=4> 4
+                            </label>
+                             <label class="radio-inline">
+                                <input type="radio" name="rating" ng-model="mycomment.rating"
+                                 id="rating5" value=5 checked> 5
+                            </label>
+                        </div>
+                    </div>                    
+                    <div class="form-group"  ng-class="{ 'has-error' : commentForm.comments.$error.required && !commentForm.comments.$pristine }">
+                        <label for="comments" class="col-sm-4 control-label">Your Comments</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" rows="5" name="comments"
+                                ng-model="mycomment.comment" required>
+                            </textarea>
+                         <span ng-show="commentForm.comments.$error.required && !commentForm.comments.$pristine" class="help-block">Your comments are required.</span>
+                       </div>
+                    </div> 
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <button type="submit" class="btn btn-primary" ng-disabled="commentForm.$invalid">Submit Comment</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+ 
+            </div>
+            <div class="col-xs-4" ng-if="showCar" style="box-shadow:0 3px 25px black;">
+                <h4>Trip Schedule:</h4>
+                 <form ng-submit="checkTrip()">
+                <div class="form-group">
+                    <label for="startTrip">Start:</label>
+                    <input type="datetime-local" class="form-control" ng-model="startDate.value" id="startTrip" 
+                    minvalue={{startDate.value}} ng-change="setNoOfDays()">
+                </div>
+                <div class="form-group">
+                    <label for="endTrip">End:</label>
+                    <input type="datetime-local" class="form-control" ng-model="endDate.value" id="endTrip" 
+                    minvalue={{startDate.value}} name="endTrip" ng-change="setNoOfDays()">
+                </div>
+                <hr/>
+                {{car.pricePerDay}} X {{noOfDays}} Days
+                <span class="pull-right">{{car.pricePerDay * noOfDays | currency}}</span>
+                <br/>
+                Trip fees:
+                <span class="pull-right">$ 20</span>
+                <hr/>
+                <div class="alert alert-danger" ng-if="showNotAvailable">
+                     <strong>Sorry!</strong> This car is not availabel for the selected dates & times.
+                </div>
+                <button type="submit" class="btn btn-success btn-block">Book Now</button>
+            </form>
+            <h4>Owned By:</h4>
+            <div class="media">
+                        <div class="media-body">
+                            <a ui-sref="app.userdetails({id: car.owner._id})">
+                            <h4 class="media-heading">
+                                <p>{{car.owner.lastname}}, {{car.owner.firstname}}</p>
+                            </h4>
+                            </a>
+                        </div>
+                         <div class="media-right media-top">
+                             <a ui-sref="app.userdetails({id: car.owner._id})">
+                                <img src="{{imagesBaseURL+car.owner.image}}" class="media-object img-circle" style="width:50px">
+                             </a>
+                        </div>
+            </div>
+            <div id="map" style="width:400px;height:400px;margin:12px">
+            </div>
+            </div>
+         </div>
+</div>
+
+<script>
+function myMap() {
+var myCenter = new google.maps.LatLng(51.508742,-0.120850);
+  var mapCanvas = document.getElementById("map");
+  var mapOptions = {center: myCenter, zoom: 5};
+  var map = new google.maps.Map(mapCanvas, mapOptions);
+  var marker = new google.maps.Marker({position:myCenter});
+  marker.setMap(map);
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYD2rxKbyPQ8u0JHS3LKqHnqOzckOv6rs&callback=myMap"></script>

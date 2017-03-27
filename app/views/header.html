@@ -1,0 +1,58 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" ui-sref="app"><img src="images/carLogo.jpeg" height=30 width=41></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse" ng-class="!navCollapsed && 'in'">
+                <ul class="nav navbar-nav">
+                    <li><a ui-sref="app">
+                        <span class="glyphicon glyphicon-home"
+                         aria-hidden="true"></span> Home</a>
+                    </li>
+                    <li><a ui-sref="app.rentcar">
+                         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                         Rent a car</a></li>
+                     <li><a ui-sref="app.contactus">
+                     <i class="fa fa-envelope-o"></i> Contact us</a></li>
+                </ul>
+                 <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a ui-sref="app.enrollurcar">
+                        Enroll a car
+                        </a>
+                    </li>
+                    <li ng-if="loggedIn"><a ui-sref="app.mytrips">
+                        My trips</a>
+                    </li>
+                    <li ng-if="loggedIn"><a ui-sref="app.profile">
+                        Profile</a>
+                    </li>
+                    <li ng-if="!loggedIn"><a ui-sref="app.login">
+                    <span class="glyphicon glyphicon-log-in"></span> Login</a>
+                    </li>
+                    <li ng-if="!loggedIn"><a ui-sref="app.signup">
+                    <span class="glyphicon glyphicon-sign-in"></span> Sign up</a>
+                    </li>
+                    <li ng-if="loggedIn">
+                        <a>
+                            <span class="badge">{{username}}</span>
+                        </a>
+                    </li>
+                    <li ng-if="loggedIn">
+                        <a>
+                        <img src="{{ImagesBaseURL + userImage}}" class="media-object img-circle" style="width:30px"></li>
+                        </a>
+                    <li ng-if="loggedIn">
+                    <a ng-click="logOut()">
+                    <span class="glyphicon glyphicon-log-in"></span> Logout</a>
+                    </li>
+                </ul>
+            </div>
+    </div>
+</nav>

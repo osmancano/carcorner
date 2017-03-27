@@ -1,0 +1,53 @@
+<style>
+#slides_control > div{
+  height: 200px;
+}
+carousel > img{
+  margin:auto;
+  width: 400px;
+}
+#slides_control {
+  position:absolute;
+  width: 400px;
+  left:50%;
+  top:20px;
+ margin-left:-200px;
+}
+</style>
+<div class="container">
+    <div class="row row-content">
+        <div class="col-xs-12 col-sm-8">
+            <h4>My Cars:</h4>
+             <div id="slides_control">
+                <div>
+                <carousel interval="300">
+                    <slide ng-repeat="myCar in myCars" ng-class="{active:false}">
+                    <img ng-src="{{imagesBaseURL+myCar.image}}">
+                    <div class="carousel-caption">
+                        <h4>Slide {{$index+1}}</h4>
+                    </div>
+                    </slide>
+                </carousel>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            <div class="">
+                <img src="{{imagesBaseURL+userInfo.image}}" class="media-object img-circle text-center" style="width:100px">
+                <h4>{{userInfo.lastname}},&nbsp;{{userInfo.firstname}}</h4>
+                <div class="form-inline">
+                    <label>Email:</label>
+                    <span>{{userInfo.email}}</span>
+                </div>
+                <div class="form-inline">
+                    <label>Address:</label>
+                    <span>{{userInfo.address}}</span>
+                </div>
+                <div class="form-inline">
+                    <label>Phone no:</label>
+                    <span>{{userInfo.phone}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

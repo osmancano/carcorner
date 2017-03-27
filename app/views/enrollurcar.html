@@ -1,0 +1,54 @@
+<div class="container" ng-controller="EnrollController">
+    <div class="row row-content">
+        <div class="col-xs-12 col-sm-3">
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <h4>Enroll your car:</h4>
+            <hr/>
+            <form class="form" ng-submit="doEnrollment()" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="carAddress">Car Address:</label>
+                    <input type="text" class="form-control" id="carAddress" ng-model="car.address" required>
+                </div>
+                <div class="form-group form-inline">
+                    <label for="carYear">Year:</label>
+                    <select class="form-control"  id="carYear" ng-model="car.year" required>
+                        <option value="" selected>Select Year</option>
+                        <option ng-repeat="year in years" value="{{year}}">{{year}}</option>
+                    </select>
+                    <label for="carMake">Make:</label>
+                    <select class="form-control" id="carMake" ng-model="car.make" ng-change="setModels()"
+                    ng-options="make.id as make.name for make in makes" required>
+                        <option value="" selected>Select Make</option>
+                    </select>
+                    <label for="carModel">Model:</label>
+                    <select class="form-control" id="carModel" ng-model="car.model" 
+                    ng-options="model.id as model.name for model in models" required>
+                        <option value="" selected>Select Model</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Transmission:</label>
+                    <div class="radio">
+                        <label><input type="radio" value="Automatic" name="transmission" ng-model="car.transmission" required> Automatic</label>
+                        <label><input type="radio" value="Manual" name="transmission" ng-model="car.transmission" required> Manual</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description">Car description:</label>
+                    <textarea type="text" class="form-control" ng-model="car.description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="pricePerDay">Price per day:</label>
+                    <input type="number" class="form-control" id="pricePerDay" min=0 size="10" ng-model="car.pricePerDay" required>
+                </div>
+                <button type="submit" class="btn btn-success btn-block">Next</button>
+            </form>
+        </div>
+    <div class="col-xs-12 col-sm-3">
+    </div>
+</div>
+</div>
+
+
+        

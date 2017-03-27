@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row row-content">
+        <div class="col-xs-12 col-sm-3">
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <div id="resultDiv">
+            </div>
+           <h2>Please upload your photo:</h2>
+                <form class="form" ng-submit="doLoadUserImage()" enctype="multipart/form-data">
+                    <input type="file" name="image" style="visibility:hidden;" id="pdffile" onchange="$('#subfile').val($(this).val());" 
+                        file-model="imageFile" readonly/>
+                        <label for="subfile">Choose Image:</label>
+                        <div class="form-group input-append">
+                            <input type="text" id="subfile" class="input-xlarge" required>
+                            <a class="btn btn-success" onclick="$('#pdffile').click();">Browse</a>
+                        </div>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">
+                        Upload image & Sign up
+                    </button>
+                </form>
+            </div>
+            </div>
+            <div class="col-xs-12 col-sm-3">
+            </div>
+        </div>
+</div>

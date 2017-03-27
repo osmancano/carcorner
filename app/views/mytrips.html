@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row row-content">
+        <div class="col-xs-12 col-sm-2">
+        </div>
+        <div class="col-xs-12 col-sm-8">
+            <div>
+                <h4>Trip History:</h4>
+            </div>
+            <div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Start date</th>
+                        <th>End date</th>
+                        <th>Total price</th>
+                        <th>Status</th>
+                        <th>Car details</th>
+                    </tr>
+                </thead>
+               <tr ng-repeat="trip in trips">
+                    <td>{{trip.startDate | date:'medium'}}</td>
+                    <td>{{trip.endDate | date:'medium'}}</td>
+                    <td>{{trip.totalPrice | currency}}</td>
+                    <td>{{trip.status}}</td>
+                    <td>
+                        <a ui-sref="app.cardetail({id: trip.car.id})">
+                        {{trip.car.make}}, {{trip.car.model}}
+                        </a>
+                    </td>
+               </tr>
+            </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+        </div>
+    </div>
+</div>

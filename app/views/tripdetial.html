@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="row row-content">
+        <div class="col-xs-12 col-sm-2">
+        </div>
+        <div class="col-xs-12 col-sm-5">
+            <div>
+                <h4>Trip details:</h4>
+                <hr/>
+                <div class="form-group form-inline">
+                    <label for="carYear">Start date:</label>
+                    <span>{{trip.startDate | date:'medium'}}</span>
+                </div>
+                <div class="form-group form-inline">
+                    <label for="carYear">&nbsp;&nbsp;End date:</label>
+                    <span>{{trip.endDate | date:'medium'}}</span>
+                </div>
+                <div class="form-group form-inline">
+                    <label for="carYear">&nbsp;&nbsp;End date:</label>
+                    <span>{{trip.totalPrice | currency}}</span>
+                </div>
+                <div class="form-group form-inline">
+                    <label for="carYear">&nbsp;&nbsp;Address:</label>
+                    <span>{{trip.car.address}}</span>
+                </div>
+                <div class="form-group form-inline">
+                    <a class="btn btn-sm btn-success" ng-click="confirmTrip()">Confirm</a>&nbsp;&nbsp;
+                    <a class="btn btn-sm btn-danger" ng-click="confirmTrip()">Cancel</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+                <div class="media-top media-top">
+                              <a ui-sref="app.cardetail({trip.car.id: car.id})">
+                              <img class="media-object img-thumbnail"
+                              ng-src={{imagesBaseURL+trip.car.image}} alt="Uthappizza">
+                              </a>
+                </div>
+                <div class="media-body">
+                    <br/>
+                    <h4 class="media-heading">{{trip.car.make}}&nbsp;{{trip.car.model}}&nbsp;<span class="badge">{{trip.car.year}}</span></h4>
+                    <h4><span class="label label-danger">{{car.pricePerDay | currency}}</span></h4>                
+                 </div>
+
+                 <div class="media">
+                        <div class="media-body">
+                            <h5 class="media-heading">
+                                <p>Owned by: </p>
+                                <small>{{trip.car.owner.lastname}}, {{trip.car.owner.firstname}}</small>
+                            </h5>  
+                        </div>
+                         <div class="media-right media-buttom">
+                             <a ui-sref="app.userdetails({id: car.owner._id})">
+                                <img src="{{imagesBaseURL+trip.car.owner.image}}" class="media-object img-circle" style="width:50px">
+                             </a>
+                        </div>
+            </div>
+            </div>
+            <div class="col-xs-12 col-sm-2">
+            </div>
+    </div>
+</div>
